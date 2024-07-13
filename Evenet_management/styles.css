@@ -1,0 +1,95 @@
+body {
+  background-color: #b1b3b3ff;
+  color: maroon;
+  font-size: large;
+}
+
+/* Css for nav bar */
+.navbar {
+  background-color: maroon;
+  height: 90px;
+  padding-top: 15px;
+  margin-bottom: 15px;
+}
+.navbar-brand {
+  font-size: 2em;
+  color: #e3cd81ff;
+  font-style: italic;
+  padding-left: 3px;
+  font-family: "Times New Roman", Times, serif;
+}
+.navbar-nav .nav-link {
+  color: #e3cd81ff;
+}
+.navbar-nav .nav-link.active {
+  color: #fff;
+}
+
+.navbar-toggler-icon {
+  background-color: beige;
+}
+
+.main-heading {
+  font-size: 2.5em;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+.lead {
+  font-size: 1.5em;
+  line-height: 1.6;
+}
+
+/*  CSS for carousel */
+.carousel-item {
+  height: calc(100vh - 150px);
+}
+.carousel-item img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.carousel-caption {
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.main-content {
+  padding-top: 5px;
+  padding-bottom: 20px;
+  margin-top: 50px;
+}
+
+/*  CSS for testimonials */
+.testimonial-item {
+  background-color: #bebebc;
+  font-size: larger;
+  padding: 60px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 125%;
+}
+
+.testimonial-rating {
+  font-size: 24px;
+  color: #ffc107;
+  margin-bottom: 10px;
+}
+
+.testimonial-text {
+  font-size: 18px;
+  line-height: 1.6;
+  flex-grow: 1;
+}
+
+.testimonial-author {
+  font-size: 16px;
+  font-style: italic;
+  text-align: right;
+  margin-top: auto;
+}
