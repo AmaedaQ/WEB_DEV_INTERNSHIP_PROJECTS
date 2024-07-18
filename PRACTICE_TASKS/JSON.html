@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JSON Handling and Parsing Example</title>
+  </head>
+  <body>
+    <h1>JSON Handling and Parsing Example</h1>
+    <div id="output"></div>
+
+    <script>
+      // Example JSON string
+      const jsonString =
+        '{"name": "John", "age": 30, "isStudent": false, "skills": ["JavaScript", "HTML", "CSS"], "address": {"street": "123 Main St", "city": "New York"}}';
+
+      // Parsing JSON string to JavaScript object
+      const jsonObject = JSON.parse(jsonString);
+
+      // Output the JavaScript object
+      console.log("Parsed JavaScript Object:", jsonObject);
+
+      // Accessing properties from the JavaScript object
+      console.log("Name:", jsonObject.name);
+      console.log("Age:", jsonObject.age);
+      console.log("Skills:", jsonObject.skills.join(", "));
+      console.log(
+        "Address:",
+        jsonObject.address.street + ", " + jsonObject.address.city
+      );
+
+      // Display parsed JSON in HTML
+      document.getElementById("output").innerHTML = `
+            <p>Name: ${jsonObject.name}</p>
+            <p>Age: ${jsonObject.age}</p>
+            <p>Is Student: ${jsonObject.isStudent}</p>
+            <p>Skills: ${jsonObject.skills.join(", ")}</p>
+            <p>Address: ${jsonObject.address.street}, ${
+        jsonObject.address.city
+      }</p>
+        `;
+
+      // Modifying the JavaScript object
+      jsonObject.age = 31;
+      jsonObject.skills.push("React");
+
+      // Stringifying JavaScript object to JSON string
+      const newJsonString = JSON.stringify(jsonObject);
+
+      // Output the new JSON string
+      console.log("New JSON String:", newJsonString);
+    </script>
+  </body>
+</html>

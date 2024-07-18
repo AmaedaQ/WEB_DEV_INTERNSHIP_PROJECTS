@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Propagation Example</title>
+    <style>
+      .outer {
+        width: 300px;
+        height: 300px;
+        background-color: lightblue;
+        padding: 20px;
+        margin: 20px;
+      }
+      .middle {
+        width: 200px;
+        height: 200px;
+        background-color: lightcoral;
+        padding: 20px;
+        margin: 20px;
+      }
+      .inner {
+        width: 100px;
+        height: 100px;
+        background-color: lightgreen;
+        margin: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="outer">
+      Outer
+      <div class="middle">
+        Middle
+        <div class="inner">Inner</div>
+      </div>
+    </div>
+
+    <script>
+      // Bubbling phase listeners
+      document.querySelector(".outer").addEventListener(
+        "click",
+        function (event) {
+          console.log("Outer clicked (Bubbling)");
+        },
+        false
+      ); // false means use bubbling phase
+
+      document.querySelector(".middle").addEventListener(
+        "click",
+        function (event) {
+          console.log("Middle clicked (Bubbling)");
+        },
+        false
+      );
+
+      document.querySelector(".inner").addEventListener(
+        "click",
+        function (event) {
+          console.log("Inner clicked (Bubbling)");
+        },
+        false
+      );
+
+      // Capturing phase listeners
+      document.querySelector(".outer").addEventListener(
+        "click",
+        function (event) {
+          console.log("Outer clicked (Capturing)");
+        },
+        true
+      ); // true means use capturing phase
+
+      document.querySelector(".middle").addEventListener(
+        "click",
+        function (event) {
+          console.log("Middle clicked (Capturing)");
+        },
+        true
+      );
+
+      document.querySelector(".inner").addEventListener(
+        "click",
+        function (event) {
+          console.log("Inner clicked (Capturing)");
+        },
+        true
+      );
+
+      // Example of stopping propagation
+      document.querySelector(".inner").addEventListener(
+        "click",
+        function (event) {
+          console.log("Inner clicked and propagation stopped (Bubbling)");
+          event.stopPropagation(); // Prevents the event from propagating further
+        },
+        false
+      );
+    </script>
+  </body>
+</html>
