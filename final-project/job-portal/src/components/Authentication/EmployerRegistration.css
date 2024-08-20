@@ -1,0 +1,63 @@
+/* Adjust the size of input fields */
+.input-icon input {
+  height: 50px; /* Increase the height */
+  font-size: 1.1rem; /* Increase the font size */
+  padding-left: 3rem; /* Adjust padding for icons */
+}
+
+/* Adjust button size */
+button {
+  height: 50px; /* Increase button height */
+  font-size: 1.1rem; /* Increase font size */
+}
+
+/* Optional: Increase card padding for better layout */
+.card-body {
+  padding: 5rem; /* Adjust padding to suit larger fields */
+}
+
+/* Style form labels */
+.form-label {
+  font-size: 1rem; /* Adjust font size for labels */
+}
+
+/* Style for links */
+a.btn-link {
+  color: #007bff;
+  text-decoration: none;
+}
+
+a.btn-link:hover {
+  text-decoration: underline;
+}
+
+/* Increase input and button widths */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="url"],
+input[type="tel"],
+textarea {
+  width: 100%; /* Full width */
+}
+
+/* Increase the margin for labels and inputs */
+.form-group {
+  margin-bottom: 1.5rem; /* Adjust margin */
+}
+/* Increase the form width and center it */
+.card {
+  max-width: 1000px; /* Increase maximum width */
+  margin: auto; /* Center the card */
+}
+
+/* Adjust input fields and buttons */
+.input-icon input,
+button {
+  width: 100%; /* Ensure full width */
+}
+
+/* Adjust card padding */
+.card-body {
+  padding: 2.5rem; /* Increase padding for larger forms */
+}

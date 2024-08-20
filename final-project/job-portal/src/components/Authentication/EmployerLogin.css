@@ -1,0 +1,40 @@
+.input-icon {
+  position: relative;
+}
+
+.input-icon input {
+  padding-left: 2.5rem;
+}
+
+.input-icon svg {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.btn-link {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.btn-link:hover {
+  text-decoration: underline;
+}
+/* Adjust the size of input fields */
+.input-icon input {
+  height: 50px; /* Increase the height */
+  font-size: 1.1rem; /* Increase the font size */
+  padding-left: 2.5rem; /* Maintain padding for icons */
+}
+
+/* Adjust button size */
+button {
+  height: 50px; /* Increase button height */
+  font-size: 1.1rem; /* Increase font size */
+}
+
+/* Optional: Increase card padding for better layout */
+.card-body {
+  padding: 2rem; /* Adjust padding to suit larger fields */
+}
