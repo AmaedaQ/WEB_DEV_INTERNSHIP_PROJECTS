@@ -1,107 +1,61 @@
-/* Hero Section */
+body {
+  background-color: #f8f9fa;
+}
+
 .hero-section {
-  background: linear-gradient(135deg, #0062e6, #33aeff);
-  color: #fff;
+  background-color: #007bff; /* Blue background */
+  color: white;
+  padding: 4rem 0;
   text-align: center;
-  padding: 5rem 0;
+  min-height: 400px;
 }
 
-.hero-section h1 {
-  font-size: 4rem;
-  font-weight: 700;
+.hero-section .btn-outline-light {
+  border-color: white;
+  color: white;
 }
 
-.hero-section p {
-  font-size: 1.25rem;
+.hero-section .btn-outline-light:hover {
+  background-color: white;
+  color: #007bff;
 }
 
-.btn-lg {
-  padding: 0.5rem 1.5rem; /* Adjusted padding for smaller button */
-  border-radius: 25px;
-  font-size: 1rem; /* Adjust font size for smaller button */
+.category-title {
+  color: #007bff; /* Blue color for category titles */
+  font-weight: bold;
 }
 
-/* Carousel */
-.carousel-caption {
-  background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-  color: #fff;
-  border-radius: 10px;
+.mini-card {
+  background-color: #ffffff; /* White background for mini cards */
+}
+
+.mini-card .icon-circle {
+  color: #007bff; /* Blue color for icons */
+  background-color: #e9ecef; /* Light gray background for icon circle */
+  border-radius: 50%;
   padding: 15px;
 }
 
-/* Cards */
-.card-title {
-  font-size: 1.25rem;
-  margin-bottom: 1rem;
+.text-primary {
+  color: #007bff; /* Blue color for text */
 }
 
-.card-body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
+.footer {
+  background-color: #343a40; /* Dark background for footer */
+  color: white;
 }
 
-.card-body svg {
-  color: #007bff;
-  margin-bottom: 1rem;
+.footer p {
+  margin: 0;
 }
 
-.card-body button {
-  width: 100%;
-  border-radius: 25px;
-  transition: background 0.3s ease;
-  padding: 0.5rem 1.5rem; /* Adjusted padding for consistent button size */
-  font-size: 1rem; /* Adjust font size for consistent button size */
+.carousel-heading {
+  color: #007bff; /* Blue color for the heading */
+  text-align: center; /* Center the text */
+  font-size: 2rem; /* Adjust font size as needed */
+  /* font-weight: bold; Make the text bold */
 }
 
-.card-body button:hover {
-  background: #0056b3;
-}
-
-/* Testimonials Section */
-blockquote {
-  font-size: 1.1rem;
-}
-
-blockquote footer {
-  font-size: 0.9rem;
-  color: #777;
-}
-
-/* CTA Banner */
-.cta-banner {
-  background: linear-gradient(135deg, #33aeff, #0062e6);
-  color: #fff;
-  padding: 3rem 0;
-}
-
-.cta-banner h2 {
-  font-size: 2rem;
-  font-weight: 700;
-}
-
-.cta-banner p {
-  font-size: 1.1rem;
-}
-
-.cta-banner .btn-lg {
-  padding: 0.5rem 1.5rem; /* Adjusted padding for smaller button */
-  border-radius: 25px;
-  font-size: 1rem; /* Adjust font size for smaller button */
-}
-
-/* Footer */
-footer {
-  background: #343a40;
-  color: #fff;
-}
-
-footer a {
-  color: #f8f9fa;
-  text-decoration: none;
-}
-
-footer a:hover {
-  text-decoration: underline;
+.icon-blue {
+  color: #007bff; /* Blue color for the icons */
 }

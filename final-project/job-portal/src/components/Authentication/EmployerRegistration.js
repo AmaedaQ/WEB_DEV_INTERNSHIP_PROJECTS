@@ -1,8 +1,25 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Container, Form, Button, Card, Alert } from "react-bootstrap";
+import { Container, Form, Button, Alert } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./EmployerRegistration.css"; // Import custom styles
+import {
+  FaBuilding,
+  FaEnvelope,
+  FaLock,
+  FaUsers,
+  FaIndustry,
+  FaCalendarAlt,
+  FaCity,
+  FaMapMarkerAlt,
+  FaAddressCard,
+  FaGlobe,
+  FaUser,
+  FaPhone,
+  FaFacebook,
+  FaTwitter,
+  FaLinkedin,
+  FaBriefcase,
+} from "react-icons/fa";
 
 function EmployerRegistration() {
   const [companyName, setCompanyName] = useState("");
@@ -76,235 +93,362 @@ function EmployerRegistration() {
   };
 
   return (
-    <Container className="d-flex justify-content-center align-items-center min-vh-100">
-      <Card
-        style={{ width: "100%", maxWidth: "600px" }}
-        className="p-4 shadow-sm border-0"
+    <Container
+      className="d-flex justify-content-center align-items-center min-vh-100 px-4"
+      style={{ padding: "0 1rem" }} // Added inline style for padding
+    >
+      <div
+        className="p-4 shadow-sm border rounded bg-white"
+        style={{
+          width: "100%",
+          maxWidth: "600px",
+          padding: "2.5rem", // Increased padding for the card
+        }}
       >
-        <Card.Body>
-          <h2 className="text-center mb-4">Employer Registration</h2>
-          {error && <Alert variant="danger">{error}</Alert>}
-          {success && <Alert variant="success">{success}</Alert>}
-          <Form onSubmit={handleRegistration}>
-            <Form.Group controlId="formCompanyName">
-              <Form.Label>
-                <i className="fas fa-building"></i> Company Name
-              </Form.Label>
-              <Form.Control
-                type="text"
-                value={companyName}
-                onChange={(e) => setCompanyName(e.target.value)}
-                required
-              />
-            </Form.Group>
+        <h2 className="text-center mb-4">Employer Registration</h2>
+        {error && <Alert variant="danger">{error}</Alert>}
+        {success && <Alert variant="success">{success}</Alert>}
+        <Form onSubmit={handleRegistration}>
+          <Form.Group
+            controlId="formCompanyName"
+            style={{ marginBottom: "1.5rem" }}
+          >
+            <Form.Label style={{ fontSize: "1rem" }}>
+              <FaBuilding /> Company Name
+            </Form.Label>
+            <Form.Control
+              type="text"
+              value={companyName}
+              onChange={(e) => setCompanyName(e.target.value)}
+              required
+              style={{
+                height: "50px",
+                fontSize: "1.1rem",
+                paddingLeft: "3rem",
+              }} // Applied styles
+            />
+          </Form.Group>
 
-            <Form.Group controlId="formEmail">
-              <Form.Label>
-                <i className="fas fa-envelope"></i> Email Address
-              </Form.Label>
-              <Form.Control
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </Form.Group>
+          <Form.Group controlId="formEmail" style={{ marginBottom: "1.5rem" }}>
+            <Form.Label style={{ fontSize: "1rem" }}>
+              <FaEnvelope /> Email Address
+            </Form.Label>
+            <Form.Control
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              style={{
+                height: "50px",
+                fontSize: "1.1rem",
+                paddingLeft: "3rem",
+              }} // Applied styles
+            />
+          </Form.Group>
 
-            <Form.Group controlId="formPassword">
-              <Form.Label>
-                <i className="fas fa-lock"></i> Password
-              </Form.Label>
-              <Form.Control
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                minLength="6"
-                title="Password must be at least 6 characters long"
-              />
-            </Form.Group>
+          <Form.Group
+            controlId="formPassword"
+            style={{ marginBottom: "1.5rem" }}
+          >
+            <Form.Label style={{ fontSize: "1rem" }}>
+              <FaLock /> Password
+            </Form.Label>
+            <Form.Control
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              minLength="6"
+              title="Password must be at least 6 characters long"
+              style={{
+                height: "50px",
+                fontSize: "1.1rem",
+                paddingLeft: "3rem",
+              }} // Applied styles
+            />
+          </Form.Group>
 
-            <Form.Group controlId="formCompanySize">
-              <Form.Label>
-                <i className="fas fa-users"></i> Company Size
-              </Form.Label>
-              <Form.Control
-                type="text"
-                value={companySize}
-                onChange={(e) => setCompanySize(e.target.value)}
-                required
-              />
-            </Form.Group>
+          <Form.Group
+            controlId="formCompanySize"
+            style={{ marginBottom: "1.5rem" }}
+          >
+            <Form.Label style={{ fontSize: "1rem" }}>
+              <FaUsers /> Company Size
+            </Form.Label>
+            <Form.Control
+              type="text"
+              value={companySize}
+              onChange={(e) => setCompanySize(e.target.value)}
+              required
+              style={{
+                height: "50px",
+                fontSize: "1.1rem",
+                paddingLeft: "3rem",
+              }} // Applied styles
+            />
+          </Form.Group>
 
-            <Form.Group controlId="formIndustry">
-              <Form.Label>
-                <i className="fas fa-industry"></i> Industry
-              </Form.Label>
-              <Form.Control
-                type="text"
-                value={industry}
-                onChange={(e) => setIndustry(e.target.value)}
-                required
-              />
-            </Form.Group>
+          <Form.Group
+            controlId="formIndustry"
+            style={{ marginBottom: "1.5rem" }}
+          >
+            <Form.Label style={{ fontSize: "1rem" }}>
+              <FaIndustry /> Industry
+            </Form.Label>
+            <Form.Control
+              type="text"
+              value={industry}
+              onChange={(e) => setIndustry(e.target.value)}
+              required
+              style={{
+                height: "50px",
+                fontSize: "1.1rem",
+                paddingLeft: "3rem",
+              }} // Applied styles
+            />
+          </Form.Group>
 
-            <Form.Group controlId="formYearEstablished">
-              <Form.Label>
-                <i className="fas fa-calendar-alt"></i> Year Established
-              </Form.Label>
-              <Form.Control
-                type="number"
-                value={yearEstablished}
-                onChange={(e) => setYearEstablished(e.target.value)}
-                required
-              />
-            </Form.Group>
+          <Form.Group
+            controlId="formYearEstablished"
+            style={{ marginBottom: "1.5rem" }}
+          >
+            <Form.Label style={{ fontSize: "1rem" }}>
+              <FaCalendarAlt /> Year Established
+            </Form.Label>
+            <Form.Control
+              type="number"
+              value={yearEstablished}
+              onChange={(e) => setYearEstablished(e.target.value)}
+              required
+              style={{
+                height: "50px",
+                fontSize: "1.1rem",
+                paddingLeft: "3rem",
+              }} // Applied styles
+            />
+          </Form.Group>
 
-            <Form.Group controlId="formCity">
-              <Form.Label>
-                <i className="fas fa-city"></i> City
-              </Form.Label>
-              <Form.Control
-                type="text"
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
-                required
-              />
-            </Form.Group>
+          <Form.Group controlId="formCity" style={{ marginBottom: "1.5rem" }}>
+            <Form.Label style={{ fontSize: "1rem" }}>
+              <FaCity /> City
+            </Form.Label>
+            <Form.Control
+              type="text"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+              required
+              style={{
+                height: "50px",
+                fontSize: "1.1rem",
+                paddingLeft: "3rem",
+              }} // Applied styles
+            />
+          </Form.Group>
 
-            <Form.Group controlId="formState">
-              <Form.Label>
-                <i className="fas fa-map-marker-alt"></i> State
-              </Form.Label>
-              <Form.Control
-                type="text"
-                value={state}
-                onChange={(e) => setState(e.target.value)}
-                required
-              />
-            </Form.Group>
+          <Form.Group controlId="formState" style={{ marginBottom: "1.5rem" }}>
+            <Form.Label style={{ fontSize: "1rem" }}>
+              <FaMapMarkerAlt /> State
+            </Form.Label>
+            <Form.Control
+              type="text"
+              value={state}
+              onChange={(e) => setState(e.target.value)}
+              required
+              style={{
+                height: "50px",
+                fontSize: "1.1rem",
+                paddingLeft: "3rem",
+              }} // Applied styles
+            />
+          </Form.Group>
 
-            <Form.Group controlId="formAddress">
-              <Form.Label>
-                <i className="fas fa-address-card"></i> Address
-              </Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={3}
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-                required
-              />
-            </Form.Group>
+          <Form.Group
+            controlId="formAddress"
+            style={{ marginBottom: "1.5rem" }}
+          >
+            <Form.Label style={{ fontSize: "1rem" }}>
+              <FaAddressCard /> Address
+            </Form.Label>
+            <Form.Control
+              as="textarea"
+              rows={3}
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+              required
+              style={{
+                height: "auto",
+                fontSize: "1.1rem",
+                paddingLeft: "3rem",
+              }} // Applied styles
+            />
+          </Form.Group>
 
-            <Form.Group controlId="formWebsite">
-              <Form.Label>
-                <i className="fas fa-globe"></i> Company Website
-              </Form.Label>
-              <Form.Control
-                type="url"
-                value={website}
-                onChange={(e) => setWebsite(e.target.value)}
-                required
-              />
-            </Form.Group>
+          <Form.Group
+            controlId="formWebsite"
+            style={{ marginBottom: "1.5rem" }}
+          >
+            <Form.Label style={{ fontSize: "1rem" }}>
+              <FaGlobe /> Company Website
+            </Form.Label>
+            <Form.Control
+              type="url"
+              value={website}
+              onChange={(e) => setWebsite(e.target.value)}
+              required
+              style={{
+                height: "50px",
+                fontSize: "1.1rem",
+                paddingLeft: "3rem",
+              }} // Applied styles
+            />
+          </Form.Group>
 
-            <Form.Group controlId="formContactPersonName">
-              <Form.Label>
-                <i className="fas fa-user"></i> Contact Person Name
-              </Form.Label>
-              <Form.Control
-                type="text"
-                value={contactPersonName}
-                onChange={(e) => setContactPersonName(e.target.value)}
-                required
-              />
-            </Form.Group>
+          <Form.Group
+            controlId="formContactPersonName"
+            style={{ marginBottom: "1.5rem" }}
+          >
+            <Form.Label style={{ fontSize: "1rem" }}>
+              <FaUser /> Contact Person Name
+            </Form.Label>
+            <Form.Control
+              type="text"
+              value={contactPersonName}
+              onChange={(e) => setContactPersonName(e.target.value)}
+              required
+              style={{
+                height: "50px",
+                fontSize: "1.1rem",
+                paddingLeft: "3rem",
+              }} // Applied styles
+            />
+          </Form.Group>
 
-            <Form.Group controlId="formContactPersonEmail">
-              <Form.Label>
-                <i className="fas fa-envelope"></i> Contact Person Email
-              </Form.Label>
-              <Form.Control
-                type="email"
-                value={contactPersonEmail}
-                onChange={(e) => setContactPersonEmail(e.target.value)}
-                required
-              />
-            </Form.Group>
+          <Form.Group
+            controlId="formContactPersonEmail"
+            style={{ marginBottom: "1.5rem" }}
+          >
+            <Form.Label style={{ fontSize: "1rem" }}>
+              <FaEnvelope /> Contact Person Email
+            </Form.Label>
+            <Form.Control
+              type="email"
+              value={contactPersonEmail}
+              onChange={(e) => setContactPersonEmail(e.target.value)}
+              required
+              style={{
+                height: "50px",
+                fontSize: "1.1rem",
+                paddingLeft: "3rem",
+              }} // Applied styles
+            />
+          </Form.Group>
 
-            <Form.Group controlId="formContactPersonRole">
-              <Form.Label>
-                <i className="fas fa-briefcase"></i> Contact Person
-                Role/Designation
-              </Form.Label>
-              <Form.Control
-                type="text"
-                value={contactPersonRole}
-                onChange={(e) => setContactPersonRole(e.target.value)}
-                required
-              />
-            </Form.Group>
+          <Form.Group
+            controlId="formContactPersonRole"
+            style={{ marginBottom: "1.5rem" }}
+          >
+            <Form.Label style={{ fontSize: "1rem" }}>
+              <FaBriefcase /> Contact Person Role
+            </Form.Label>
+            <Form.Control
+              type="text"
+              value={contactPersonRole}
+              onChange={(e) => setContactPersonRole(e.target.value)}
+              required
+              style={{
+                height: "50px",
+                fontSize: "1.1rem",
+                paddingLeft: "3rem",
+              }} // Applied styles
+            />
+          </Form.Group>
 
-            <Form.Group controlId="formContactPersonPhone">
-              <Form.Label>
-                <i className="fas fa-phone"></i> Contact Person Phone
-              </Form.Label>
-              <Form.Control
-                type="tel"
-                value={contactPersonPhone}
-                onChange={(e) => setContactPersonPhone(e.target.value)}
-                required
-              />
-            </Form.Group>
+          <Form.Group
+            controlId="formContactPersonPhone"
+            style={{ marginBottom: "1.5rem" }}
+          >
+            <Form.Label style={{ fontSize: "1rem" }}>
+              <FaPhone /> Contact Person Phone
+            </Form.Label>
+            <Form.Control
+              type="tel"
+              value={contactPersonPhone}
+              onChange={(e) => setContactPersonPhone(e.target.value)}
+              required
+              style={{
+                height: "50px",
+                fontSize: "1.1rem",
+                paddingLeft: "3rem",
+              }} // Applied styles
+            />
+          </Form.Group>
 
-            {/* Social Media Links */}
-            <Form.Group controlId="formLinkedin">
-              <Form.Label>
-                <i className="fab fa-linkedin"></i> LinkedIn Profile
-              </Form.Label>
-              <Form.Control
-                type="url"
-                value={linkedin}
-                onChange={(e) => setLinkedin(e.target.value)}
-              />
-            </Form.Group>
+          <Form.Group
+            controlId="formLinkedin"
+            style={{ marginBottom: "1.5rem" }}
+          >
+            <Form.Label style={{ fontSize: "1rem" }}>
+              <FaLinkedin /> LinkedIn Profile
+            </Form.Label>
+            <Form.Control
+              type="url"
+              value={linkedin}
+              onChange={(e) => setLinkedin(e.target.value)}
+              style={{
+                height: "50px",
+                fontSize: "1.1rem",
+                paddingLeft: "3rem",
+              }} // Applied styles
+            />
+          </Form.Group>
 
-            <Form.Group controlId="formTwitter">
-              <Form.Label>
-                <i className="fab fa-twitter"></i> Twitter Profile
-              </Form.Label>
-              <Form.Control
-                type="url"
-                value={twitter}
-                onChange={(e) => setTwitter(e.target.value)}
-              />
-            </Form.Group>
+          <Form.Group
+            controlId="formTwitter"
+            style={{ marginBottom: "1.5rem" }}
+          >
+            <Form.Label style={{ fontSize: "1rem" }}>
+              <FaTwitter /> Twitter Profile
+            </Form.Label>
+            <Form.Control
+              type="url"
+              value={twitter}
+              onChange={(e) => setTwitter(e.target.value)}
+              style={{
+                height: "50px",
+                fontSize: "1.1rem",
+                paddingLeft: "3rem",
+              }} // Applied styles
+            />
+          </Form.Group>
 
-            <Form.Group controlId="formFacebook">
-              <Form.Label>
-                <i className="fab fa-facebook"></i> Facebook Profile
-              </Form.Label>
-              <Form.Control
-                type="url"
-                value={facebook}
-                onChange={(e) => setFacebook(e.target.value)}
-              />
-            </Form.Group>
+          <Form.Group
+            controlId="formFacebook"
+            style={{ marginBottom: "1.5rem" }}
+          >
+            <Form.Label style={{ fontSize: "1rem" }}>
+              <FaFacebook /> Facebook Profile
+            </Form.Label>
+            <Form.Control
+              type="url"
+              value={facebook}
+              onChange={(e) => setFacebook(e.target.value)}
+              style={{
+                height: "50px",
+                fontSize: "1.1rem",
+                paddingLeft: "3rem",
+              }} // Applied styles
+            />
+          </Form.Group>
 
-            <Button variant="primary" type="submit" className="w-100 mt-3">
-              Register
-            </Button>
-          </Form>
-          <p className="text-center mt-3">
-            Already have an account?{" "}
-            <a href="/login/employer" className="btn-link">
-              Login here
-            </a>
-            .
-          </p>
-        </Card.Body>
-      </Card>
+          <Button
+            variant="primary"
+            type="submit"
+            style={{ width: "100%", height: "50px", fontSize: "1.2rem" }} // Applied styles
+          >
+            Register
+          </Button>
+        </Form>
+      </div>
     </Container>
   );
 }

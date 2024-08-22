@@ -16,7 +16,9 @@ function AllJobs() {
   const [jobs, setJobs] = useState([]);
   const [employers, setEmployers] = useState([]);
   const [selectedEmployer, setSelectedEmployer] = useState(null);
+  const [selectedJob, setSelectedJob] = useState(null);
   const [showEmployerModal, setShowEmployerModal] = useState(false);
+  const [showJobModal, setShowJobModal] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("All");
   const [typeFilter, setTypeFilter] = useState("All");
@@ -37,7 +39,13 @@ function AllJobs() {
     setShowEmployerModal(true);
   };
 
+  const handleShowJobDetails = (job) => {
+    setSelectedJob(job);
+    setShowJobModal(true);
+  };
+
   const handleCloseEmployerModal = () => setShowEmployerModal(false);
+  const handleCloseJobModal = () => setShowJobModal(false);
 
   const handleApply = (jobId) => {
     window.location.href = `/apply/${jobId}`;
@@ -99,14 +107,53 @@ function AllJobs() {
     );
   };
 
+  const renderJobDetails = () => {
+    if (!selectedJob) return <p>No details available.</p>;
+
+    return (
+      <div>
+        <p>
+          <strong>Job Title:</strong> {selectedJob.jobTitle}
+        </p>
+        <p>
+          <strong>Category:</strong> {selectedJob.category}
+        </p>
+        <p>
+          <strong>Job Type:</strong> {selectedJob.jobType}
+        </p>
+        <p>
+          <strong>Location:</strong> {selectedJob.location}
+        </p>
+        <p>
+          <strong>Description:</strong> {selectedJob.description}
+        </p>
+        <p>
+          <strong>Requirements:</strong> {selectedJob.requirements}
+        </p>
+        <p>
+          <strong>Salary:</strong> ${selectedJob.salary}
+        </p>
+        <p>
+          <strong>Last Date to Apply:</strong> {selectedJob.lastDateToApply}
+        </p>
+        <p>
+          <strong>Posted By:</strong> {selectedJob.postedBy}
+        </p>
+      </div>
+    );
+  };
+
   // Filtering jobs based on search term, category, type, and experience
   const filteredJobs = jobs.filter((job) => {
     const matchesSearchTerm =
       job.jobTitle.toLowerCase().includes(searchTerm.toLowerCase()) ||
       job.location.toLowerCase().includes(searchTerm.toLowerCase());
+
     const matchesCategory =
       categoryFilter === "All" || job.category === categoryFilter;
+
     const matchesType = typeFilter === "All" || job.jobType === typeFilter;
+
     const matchesExperience =
       experienceFilter === "All" || job.experienceLevel === experienceFilter;
 
@@ -116,7 +163,7 @@ function AllJobs() {
   });
 
   return (
-    <Container className="mt-5">
+    <Container className="mt-5 text-center">
       <h2 className="mb-4 text-center text-primary">All Job Listings</h2>
 
       {/* Search Bar and Filters */}
@@ -152,8 +199,8 @@ function AllJobs() {
             onChange={(e) => setTypeFilter(e.target.value)}
           >
             <option value="All">All Job Types</option>
-            <option value="Full-Time">Full-Time</option>
-            <option value="Part-Time">Part-Time</option>
+            <option value="Full-time">Full-time</option>
+            <option value="Part-time">Part-time</option>
             <option value="Internship">Internship</option>
             <option value="Contract">Contract</option>
           </Form.Select>
@@ -164,9 +211,9 @@ function AllJobs() {
             onChange={(e) => setExperienceFilter(e.target.value)}
           >
             <option value="All">All Experience Levels</option>
-            <option value="Entry-Level">Entry-Level</option>
-            <option value="Mid-Level">Mid-Level</option>
-            <option value="Senior-Level">Senior-Level</option>
+            <option value="Entry Level">Entry Level</option>
+            <option value="Mid Level">Mid Level</option>
+            <option value="Senior Level">Senior Level</option>
           </Form.Select>
         </Col>
       </Row>
@@ -200,32 +247,36 @@ function AllJobs() {
                     </Badge>
                   </Card.Subtitle>
                   <Card.Text>
-                    <strong>Description:</strong> {job.description}
-                    <br />
-                    <strong>Requirements:</strong> {job.requirements}
-                    <br />
                     <strong>Location:</strong> {job.location}
                     <br />
-                    <strong>Salary:</strong> ${job.salary}
-                    <br />
                     <strong>Last Date to Apply:</strong> {job.lastDateToApply}
-                    <br />
-                    <strong>Posted By:</strong> {job.postedBy}
                   </Card.Text>
                   <div className="d-flex justify-content-between">
                     <Button
-                      variant="primary"
+                      variant="outline-primary"
                       onClick={() => handleApply(job.id)}
                       size="sm"
+                      style={{ fontSize: "0.75rem" }} // Adjust the font size here
                     >
                       Apply Now
                     </Button>
                     <Button
-                      variant="link"
+                      className="ms-2"
+                      variant="outline-info"
+                      onClick={() => handleShowJobDetails(job)}
+                      size="sm"
+                      style={{ fontSize: "0.75rem" }} // Adjust the font size here
+                    >
+                      View Details
+                    </Button>
+                    <Button
+                      className="ms-2"
+                      variant="outline-dark"
                       onClick={() => handleShowEmployerDetails(job.postedBy)}
                       size="sm"
+                      style={{ fontSize: "0.75rem" }} // Adjust the font size here
                     >
-                      View Employer Details
+                      View Employer
                     </Button>
                   </div>
                 </Card.Body>
@@ -233,9 +284,7 @@ function AllJobs() {
             </Col>
           ))
         ) : (
-          <Col>
-            <p className="text-center">No jobs available.</p>
-          </Col>
+          <p className="text-center">No jobs found.</p>
         )}
       </Row>
 
@@ -247,6 +296,19 @@ function AllJobs() {
         <Modal.Body>{renderEmployerDetails()}</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseEmployerModal}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* Job Details Modal */}
+      <Modal show={showJobModal} onHide={handleCloseJobModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Job Details</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{renderJobDetails()}</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseJobModal}>
             Close
           </Button>
         </Modal.Footer>

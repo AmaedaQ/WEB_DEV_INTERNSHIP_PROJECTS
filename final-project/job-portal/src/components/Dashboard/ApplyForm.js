@@ -1,35 +1,42 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Form, Button, Alert } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 
 function ApplyForm() {
-  const { jobId } = useParams(); // Get jobId from URL parameters
+  const { jobId } = useParams();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [coverLetter, setCoverLetter] = useState("");
-  // eslint-disable-next-line no-unused-vars
-  const [resume, setResume] = useState("");
   const [resumeFileName, setResumeFileName] = useState("");
   const [status] = useState("Submitted");
   const [error, setError] = useState("");
+  const [jobTitle, setJobTitle] = useState(""); // State to hold job title
   const navigate = useNavigate();
 
+  useEffect(() => {
+    // Fetch job details from localStorage and set jobTitle
+    const jobs = JSON.parse(localStorage.getItem("jobs")) || [];
+    const job = jobs.find((j) => j.id === parseInt(jobId));
+    if (job) {
+      setJobTitle(job.jobTitle); // Set the job title from localStorage
+    }
+  }, [jobId]);
+
   const handleFileChange = (e) => {
-    setResumeFileName(e.target.files[0]?.name || ""); // Update resume file name
+    setResumeFileName(e.target.files[0]?.name || "");
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Validate form inputs
     if (!name || !email || !coverLetter || !resumeFileName) {
       setError("All fields are required.");
       return;
     }
 
-    // Prepare application data
     const application = {
       jobId: parseInt(jobId),
+      jobTitle, // Include jobTitle in application data
       coverLetter,
       resume: resumeFileName,
       status,
@@ -38,14 +45,12 @@ function ApplyForm() {
       appliedAt: new Date().toISOString(),
     };
 
-    // Retrieve existing applications from localStorage
     const jobApplications =
       JSON.parse(localStorage.getItem("jobApplications")) || [];
-
-    // Check if job already exists in applications
     const existingJobApp = jobApplications.find(
       (app) => app.jobId === parseInt(jobId)
     );
+
     if (existingJobApp) {
       existingJobApp.applications.push(application);
     } else {
@@ -55,17 +60,20 @@ function ApplyForm() {
       });
     }
 
-    // Save updated applications back to localStorage
     localStorage.setItem("jobApplications", JSON.stringify(jobApplications));
 
-    // Redirect to application history or success page
+    const seekerApplications =
+      JSON.parse(localStorage.getItem("applications")) || [];
+    seekerApplications.push(application);
+    localStorage.setItem("applications", JSON.stringify(seekerApplications));
+
     navigate("/application-history");
   };
 
   return (
     <Container style={{ maxWidth: "600px", marginTop: "20px" }}>
       <h2 style={{ marginBottom: "20px", color: "#007bff" }}>
-        Apply for Job ID {jobId}
+        Apply for {jobTitle} (Job ID: {jobId})
       </h2>
       {error && (
         <Alert variant="danger" style={{ marginBottom: "20px" }}>

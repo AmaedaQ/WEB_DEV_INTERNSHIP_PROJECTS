@@ -1,3 +1,4 @@
+/* Custom styles for EmployerLogin component */
 .input-icon {
   position: relative;
 }
@@ -6,35 +7,10 @@
   padding-left: 2.5rem;
 }
 
-.input-icon svg {
+.input-icon .fa-envelope,
+.input-icon .fa-lock {
   position: absolute;
-  left: 10px;
   top: 50%;
+  left: 0.75rem;
   transform: translateY(-50%);
-}
-
-.btn-link {
-  color: #007bff;
-  text-decoration: none;
-}
-
-.btn-link:hover {
-  text-decoration: underline;
-}
-/* Adjust the size of input fields */
-.input-icon input {
-  height: 50px; /* Increase the height */
-  font-size: 1.1rem; /* Increase the font size */
-  padding-left: 2.5rem; /* Maintain padding for icons */
-}
-
-/* Adjust button size */
-button {
-  height: 50px; /* Increase button height */
-  font-size: 1.1rem; /* Increase font size */
-}
-
-/* Optional: Increase card padding for better layout */
-.card-body {
-  padding: 2rem; /* Adjust padding to suit larger fields */
 }

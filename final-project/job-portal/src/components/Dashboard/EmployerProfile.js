@@ -20,7 +20,7 @@ function EmployerProfile() {
     linkedin: "",
     twitter: "",
     facebook: "",
-    logo: "", // Added logo field
+    logo: "",
   });
 
   const navigate = useNavigate();

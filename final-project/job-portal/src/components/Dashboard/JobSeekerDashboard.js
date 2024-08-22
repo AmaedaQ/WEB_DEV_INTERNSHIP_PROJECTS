@@ -31,46 +31,63 @@ function JobSeekerDashboard() {
   }, [navigate]);
 
   return (
-    <Container fluid>
-      <Navbar bg="primary" variant="dark" className="mb-4">
+    <Container fluid style={{ padding: "0" }}>
+      <Navbar
+        bg="primary"
+        variant="dark"
+        expand="lg"
+        className="mb-4"
+        style={{ borderBottom: "4px solid #ffffff" }}
+      >
         <Navbar.Brand href="#home" className="text-white">
           <Nav.Link
             className="text-white"
             onClick={() => navigate("/dashboard/job-seeker")}
+            style={{ fontWeight: "bold" }}
           >
-            <FontAwesomeIcon icon={faHome} className="me-2" /> Dashboard
+            <FontAwesomeIcon icon={faHome} className="me-2" />
+            Job Seeker's Dashboard
           </Nav.Link>
         </Navbar.Brand>
-        <Nav className="ms-auto">
-          <Nav.Link className="text-white" onClick={() => navigate("/")}>
-            <FontAwesomeIcon icon={faHome} className="me-2" /> Home
-          </Nav.Link>
-
-          <Nav.Link className="text-white" onClick={() => navigate("/profile")}>
-            <FontAwesomeIcon icon={faUser} className="me-2" /> Profile
-          </Nav.Link>
-          <Nav.Link
-            className="text-white"
-            onClick={() => navigate("/application-history")}
-          >
-            <FontAwesomeIcon icon={faHistory} className="me-2" /> Application
-            History
-          </Nav.Link>
-          <Nav.Link
-            className="text-white"
-            onClick={() => {
-              localStorage.removeItem("auth");
-              navigate("/login/job-seeker");
-            }}
-          >
-            <FontAwesomeIcon icon={faSignOutAlt} className="me-2" /> Logout
-          </Nav.Link>
-        </Nav>
+        <Navbar.Toggle aria-controls="navbar-nav" />
+        <Navbar.Collapse id="navbar-nav">
+          <Nav className="ms-auto">
+            <Nav.Link className="text-white" onClick={() => navigate("/")}>
+              <FontAwesomeIcon icon={faHome} className="me-2" /> Home
+            </Nav.Link>
+            <Nav.Link
+              className="text-white"
+              onClick={() => navigate("/profile")}
+            >
+              <FontAwesomeIcon icon={faUser} className="me-2" /> Profile
+            </Nav.Link>
+            <Nav.Link
+              className="text-white"
+              onClick={() => navigate("/application-history")}
+            >
+              <FontAwesomeIcon icon={faHistory} className="me-2" /> Application
+              History
+            </Nav.Link>
+            <Nav.Link
+              className="text-white"
+              onClick={() => {
+                localStorage.removeItem("auth");
+                navigate("/login/job-seeker");
+              }}
+            >
+              <FontAwesomeIcon icon={faSignOutAlt} className="me-2" /> Logout
+            </Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
       </Navbar>
+
       <Container>
         <Row className="mb-4">
           <Col md={8}>
-            <h1 className="text-primary" style={{ fontSize: "2rem" }}>
+            <h1
+              className="text-primary"
+              style={{ fontSize: "2rem", fontWeight: "bold" }}
+            >
               Welcome, {userName || "Job Seeker"}!
             </h1>
           </Col>

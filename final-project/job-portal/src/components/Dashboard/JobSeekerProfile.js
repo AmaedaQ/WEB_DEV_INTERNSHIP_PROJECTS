@@ -1,5 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Container, Card, Button, Form, Alert } from "react-bootstrap";
+import {
+  FaUser,
+  FaPhone,
+  FaMapMarkerAlt,
+  FaGraduationCap,
+  FaBriefcase,
+  FaEdit,
+  FaTimes,
+} from "react-icons/fa";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
 
@@ -10,25 +19,17 @@ function JobSeekerProfile() {
   const [currentStep, setCurrentStep] = useState(0);
   const [updateStatus, setUpdateStatus] = useState("");
 
-  // Personal Information
+  // Form fields
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
-
-  // Education Details
   const [degree, setDegree] = useState("");
   const [institution, setInstitution] = useState("");
   const [graduationYear, setGraduationYear] = useState("");
-
-  // Skills
   const [skills, setSkills] = useState("");
-
-  // Experience
   const [experience, setExperience] = useState("");
 
   useEffect(() => {
-    // Retrieve user data from local storage
     const authData = JSON.parse(localStorage.getItem("auth"));
     if (authData && authData.role === "job_seeker") {
       const users = JSON.parse(localStorage.getItem("users")) || [];
@@ -36,7 +37,6 @@ function JobSeekerProfile() {
       if (currentUser) {
         setUserData(currentUser);
         setName(currentUser.name);
-        setEmail(currentUser.email);
         setPhone(currentUser.phone || "N/A");
         setAddress(currentUser.address || "N/A");
         setDegree(currentUser.degree || "N/A");
@@ -59,10 +59,9 @@ function JobSeekerProfile() {
   const handleSave = (e) => {
     e.preventDefault();
 
-    // Update user data
     const users = JSON.parse(localStorage.getItem("users")) || [];
     const updatedUsers = users.map((user) =>
-      user.email === email
+      user.email === userData.email
         ? {
             ...user,
             name,
@@ -105,7 +104,7 @@ function JobSeekerProfile() {
     switch (currentStep) {
       case 0:
         return (
-          <div>
+          <>
             <Form.Group controlId="name">
               <Form.Label>Name</Form.Label>
               <Form.Control
@@ -131,11 +130,11 @@ function JobSeekerProfile() {
                 onChange={(e) => setAddress(e.target.value)}
               />
             </Form.Group>
-          </div>
+          </>
         );
       case 1:
         return (
-          <div>
+          <>
             <Form.Group controlId="degree">
               <Form.Label>Degree</Form.Label>
               <Form.Control
@@ -160,7 +159,7 @@ function JobSeekerProfile() {
                 onChange={(e) => setGraduationYear(e.target.value)}
               />
             </Form.Group>
-          </div>
+          </>
         );
       case 2:
         return (
@@ -192,20 +191,22 @@ function JobSeekerProfile() {
   };
 
   return (
-    <Container style={{ maxWidth: "1200px", marginTop: "20px" }}>
+    <Container style={{ maxWidth: "800px", marginTop: "20px" }}>
       <Card
-        style={{ padding: "20px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)" }}
+        style={{
+          padding: "20px",
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+          position: "relative",
+          borderRadius: "8px",
+        }}
       >
         <Card.Body>
-          <h2
-            style={{
-              marginBottom: "20px",
-              color: "#007bff",
-              textAlign: "center",
-            }}
-          >
-            Job Seeker Profile
-          </h2>
+          <div className="text-center">
+            <FaUser size={100} color="#007bff" />
+            <h2 className="text-primary" style={{ marginTop: "10px" }}>
+              {userData?.name}
+            </h2>
+          </div>
           {updateStatus && (
             <Alert variant="success" style={{ marginBottom: "20px" }}>
               {updateStatus}
@@ -225,33 +226,34 @@ function JobSeekerProfile() {
                   <Button
                     variant="secondary"
                     onClick={handlePrevious}
-                    style={{ marginRight: "10px" }}
+                    style={{ flex: 1, maxWidth: "150px" }}
                   >
                     Previous
                   </Button>
                 )}
-                {currentStep < 4 && (
+                {currentStep < 3 && (
                   <Button
                     variant="primary"
                     onClick={handleNext}
-                    style={{ marginRight: "10px" }}
+                    style={{ flex: 1, maxWidth: "150px" }}
                   >
                     Next
                   </Button>
                 )}
-                {currentStep === 4 && (
+                {currentStep === 3 && (
                   <Button
                     variant="primary"
                     type="submit"
-                    style={{ marginRight: "10px" }}
+                    style={{ flex: 1, maxWidth: "150px" }}
                   >
                     Save Changes
                   </Button>
                 )}
-                {currentStep < 4 && (
+                {currentStep < 3 && (
                   <Button
                     variant="secondary"
                     onClick={() => setEditMode(false)}
+                    style={{ flex: 1, maxWidth: "150px" }}
                   >
                     Cancel
                   </Button>
@@ -260,73 +262,71 @@ function JobSeekerProfile() {
             </Form>
           ) : (
             <>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  flexWrap: "wrap",
-                }}
-              >
-                <div style={{ flex: 1, padding: "10px" }}>
-                  <strong>Name:</strong> {userData?.name}
+              <div style={{ marginBottom: "20px" }}>
+                <h4 className="text-primary">
+                  <FaUser /> Personal Information
+                </h4>
+                <div style={{ marginBottom: "10px" }}>
+                  <FaUser /> <strong>Name:</strong> {userData?.name}
                 </div>
-                <div style={{ flex: 1, padding: "10px" }}>
-                  <strong>Email:</strong> {userData?.email}
+                <div style={{ marginBottom: "10px" }}>
+                  <FaPhone /> <strong>Phone:</strong> {userData?.phone}
                 </div>
-                <div style={{ flex: 1, padding: "10px" }}>
-                  <strong>Phone:</strong> {userData?.phone}
-                </div>
-                <div style={{ flex: 1, padding: "10px" }}>
-                  <strong>Address:</strong> {userData?.address}
+                <div>
+                  <FaMapMarkerAlt /> <strong>Address:</strong>{" "}
+                  {userData?.address}
                 </div>
               </div>
               <hr />
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  flexWrap: "wrap",
-                }}
-              >
-                <div style={{ flex: 1, padding: "10px" }}>
+              <div style={{ marginBottom: "20px" }}>
+                <h4 className="text-primary">
+                  <FaGraduationCap /> Education
+                </h4>
+                <div style={{ marginBottom: "10px" }}>
                   <strong>Degree:</strong> {userData?.degree}
                 </div>
-                <div style={{ flex: 1, padding: "10px" }}>
+                <div style={{ marginBottom: "10px" }}>
                   <strong>Institution:</strong> {userData?.institution}
                 </div>
-                <div style={{ flex: 1, padding: "10px" }}>
+                <div>
                   <strong>Graduation Year:</strong> {userData?.graduationYear}
-                </div>
-                <div style={{ flex: 1, padding: "10px" }}>
-                  <strong>Skills:</strong> {userData?.skills}
                 </div>
               </div>
               <hr />
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  flexWrap: "wrap",
-                }}
-              >
-                <div style={{ flex: 1, padding: "10px" }}>
+              <div style={{ marginBottom: "20px" }}>
+                <h4 className="text-primary">
+                  <FaBriefcase /> Professional
+                </h4>
+                <div style={{ marginBottom: "10px" }}>
+                  <strong>Skills:</strong> {userData?.skills}
+                </div>
+                <div>
                   <strong>Experience:</strong> {userData?.experience}
                 </div>
               </div>
-              <hr />
-              <Button
-                variant="primary"
-                onClick={handleEdit}
-                style={{ display: "block", margin: "20px auto" }}
-              >
-                Edit Profile
+              <Button variant="primary" onClick={handleEdit}>
+                <FaEdit /> Edit Profile
               </Button>
             </>
           )}
         </Card.Body>
+        <Button
+          variant="light "
+          style={{
+            position: "absolute",
+            top: "10px",
+            left: "650px",
+            border: "none",
+            background: "transparent",
+            fontSize: "20px",
+            zIndex: 1,
+          }}
+          onClick={() => navigate(-1)} // Go back to the previous page
+        >
+          <strong>
+            Close <FaTimes />
+          </strong>
+        </Button>
       </Card>
     </Container>
   );

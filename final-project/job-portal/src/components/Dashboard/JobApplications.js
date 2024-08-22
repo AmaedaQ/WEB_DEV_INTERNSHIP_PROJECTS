@@ -3,19 +3,23 @@ import {
   Container,
   Table,
   Button,
-  Spinner,
-  Alert,
   Modal,
+  Alert,
+  Spinner,
+  Form,
 } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 
 function JobApplications() {
-  const { jobId } = useParams(); // Get jobId from URL parameters
+  const { jobId } = useParams();
   const [applications, setApplications] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [resumeUrl, setResumeUrl] = useState("");
+  const [messageModal, setMessageModal] = useState(false);
+  const [selectedAppId, setSelectedAppId] = useState(null);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     const fetchApplications = () => {
@@ -53,6 +57,19 @@ function JobApplications() {
       JSON.stringify(updatedJobApplications)
     );
     setApplications(updatedApplications);
+
+    // Notify job seekers about the status change
+    updateJobSeekerStatus(applicationId, newStatus);
+  };
+
+  const updateJobSeekerStatus = (applicationId, newStatus) => {
+    const applications = JSON.parse(localStorage.getItem("applications")) || [];
+    const updatedApplications = applications.map((app) =>
+      app.jobId === parseInt(jobId) && app.id === applicationId
+        ? { ...app, status: newStatus }
+        : app
+    );
+    localStorage.setItem("applications", JSON.stringify(updatedApplications));
   };
 
   const handleResumeClick = (resumeFileName) => {
@@ -63,6 +80,47 @@ function JobApplications() {
   const handleCloseModal = () => {
     setShowModal(false);
     setResumeUrl("");
+  };
+
+  const handleSendMessage = () => {
+    const jobApplications =
+      JSON.parse(localStorage.getItem("jobApplications")) || [];
+    const updatedApplications = jobApplications.map((jobApp) => ({
+      ...jobApp,
+      applications: jobApp.applications.map((app) =>
+        app.id === selectedAppId ? { ...app, message: message } : app
+      ),
+    }));
+    localStorage.setItem(
+      "jobApplications",
+      JSON.stringify(updatedApplications)
+    );
+
+    // Also update the job applications on the job seeker side
+    updateJobSeekerMessage(selectedAppId, message);
+
+    setMessageModal(false);
+    setMessage("");
+  };
+
+  const updateJobSeekerMessage = (applicationId, newMessage) => {
+    const applications = JSON.parse(localStorage.getItem("applications")) || [];
+    const updatedApplications = applications.map((app) =>
+      app.jobId === parseInt(jobId) && app.id === applicationId
+        ? { ...app, message: newMessage }
+        : app
+    );
+    localStorage.setItem("applications", JSON.stringify(updatedApplications));
+  };
+
+  const openMessageModal = (applicationId) => {
+    setSelectedAppId(applicationId);
+    setMessageModal(true);
+  };
+
+  const closeMessageModal = () => {
+    setMessageModal(false);
+    setMessage("");
   };
 
   if (loading) {
@@ -101,7 +159,7 @@ function JobApplications() {
                   <Button
                     variant="link"
                     onClick={() => handleResumeClick(app.resume)}
-                    style={{ fontSize: "0.8rem" }} // Smaller font size
+                    style={{ fontSize: "0.8rem" }}
                   >
                     View Resume
                   </Button>
@@ -113,23 +171,30 @@ function JobApplications() {
                     <Button
                       onClick={() => handleStatusChange(app.id, "Under Review")}
                       variant="warning"
-                      style={{ fontSize: "0.8rem" }} // Smaller font size
+                      style={{ fontSize: "0.8rem" }}
                     >
                       Under Review
                     </Button>
                     <Button
                       onClick={() => handleStatusChange(app.id, "Accepted")}
                       variant="success"
-                      style={{ fontSize: "0.8rem" }} // Smaller font size
+                      style={{ fontSize: "0.8rem" }}
                     >
                       Accept
                     </Button>
                     <Button
                       onClick={() => handleStatusChange(app.id, "Rejected")}
                       variant="danger"
-                      style={{ fontSize: "0.8rem" }} // Smaller font size
+                      style={{ fontSize: "0.8rem" }}
                     >
                       Reject
+                    </Button>
+                    <Button
+                      onClick={() => openMessageModal(app.id)}
+                      variant="primary"
+                      style={{ fontSize: "0.8rem" }}
+                    >
+                      Send Message
                     </Button>
                   </div>
                 </td>
@@ -159,9 +224,44 @@ function JobApplications() {
           <Button
             variant="secondary"
             onClick={handleCloseModal}
-            style={{ fontSize: "0.8rem" }} // Smaller font size
+            style={{ fontSize: "0.8rem" }}
           >
             Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={messageModal} onHide={closeMessageModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Send Message to Applicant</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group controlId="message">
+              <Form.Label>Message</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={3}
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+              />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="secondary"
+            onClick={closeMessageModal}
+            style={{ fontSize: "0.8rem" }}
+          >
+            Close
+          </Button>
+          <Button
+            variant="primary"
+            onClick={handleSendMessage}
+            style={{ fontSize: "0.8rem" }}
+          >
+            Send Message
           </Button>
         </Modal.Footer>
       </Modal>

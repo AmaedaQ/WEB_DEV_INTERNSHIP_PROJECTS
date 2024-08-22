@@ -1,0 +1,28 @@
+/* JobSeekerLogin.css */
+
+.container {
+  background-color: #f8f9fa;
+}
+
+.login-container {
+  width: 100%;
+  max-width: 500px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.login-container h2 {
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.login-container .btn-link {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.login-container .btn-link:hover {
+  text-decoration: underline;
+}
